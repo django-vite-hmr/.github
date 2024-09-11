@@ -43,6 +43,10 @@ Before we proceed with the installation, make sure your Django project is up-and
 
 ### Vite
 
+There are two options you can choose for Vite side. One, using [Vite Plugin](#vite-plugin) and another, using [Vite Server](#vite-server).
+
+#### Vite Plugin
+
 To use vite, you need to have [Node](https://nodejs.org/en) installed in your machine.
 
 -   **Project Initialization**
@@ -100,6 +104,32 @@ To use vite, you need to have [Node](https://nodejs.org/en) installed in your ma
     npx vite --strictPort
     ```
 
+> Note: `{% vite_hot %}` tag doesn't work in this method
+
+#### Vite Server
+
+To use vite, you need to have [Node](https://nodejs.org/en) installed in your machine.
+
+-   **Installation**
+
+    First, install [vite-server](https://www.npmjs.com/package/@django-vite/vite-server). Run following commands
+
+    ```bash
+    yarn global add @django-vite/vite-server
+    ```
+
+-   **Start Server**
+
+    You can use using Command Line Interface to start the server
+
+    ```bash
+    django-vite-hmr
+    ```
+
+-   **Configuration**
+
+    You can add additional configurations to override the default config. [View Here](https://github.com/django-vite-hmr/vite-server#readme)
+
 ## Usages
 
 Configure your TEMPLATES and STATIC file path as you normally do. Now, inside your template files, load the vite tag as following.
@@ -112,6 +142,7 @@ Configure your TEMPLATES and STATIC file path as you normally do. Now, inside yo
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {% vite_hot %}
         {% comment %} Load static files {% endcomment %}
         {% vite_asset "/main.css" %}
         {% vite_asset "/main.js" %}
@@ -124,6 +155,7 @@ Configure your TEMPLATES and STATIC file path as you normally do. Now, inside yo
 </html>
 ```
 
+-   **{% vite_hot %}**: Inject Reloading Script in HTML document. This can work only with [Vite Server](#vite-server).
 -   **{% load vite %}**: This will load django_vite_hmr templatetag
 -   **{% vite_asset 'filename' attrbute_key="value" attribute_key="value" %}**: This will load your css/js file in way want that it provides `HMR` when DEBUG is True. Otherwise, load as normal static files.
 
